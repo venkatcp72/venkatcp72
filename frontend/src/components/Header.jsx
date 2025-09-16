@@ -80,13 +80,14 @@ const Header = () => {
             <Button 
               variant="outline" 
               size="sm"
+              onClick={() => setIsResumeOpen(true)}
               className={`transition-all duration-300 ${
                 isScrolled 
                   ? 'border-gray-300 text-gray-700 hover:bg-gray-50' 
                   : 'border-white/30 text-white hover:bg-white/10'
               }`}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Eye className="w-4 h-4 mr-2" />
               Resume
             </Button>
             <Button 
