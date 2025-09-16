@@ -25,6 +25,15 @@ const Projects = () => {
     "Product Design": "from-yellow-500 to-orange-500"
   };
 
+  const categoryIcons = {
+    "Branding": <Palette className="w-16 h-16 text-white" />,
+    "Motion Design": <Play className="w-16 h-16 text-white" />,
+    "Digital Marketing": <Megaphone className="w-16 h-16 text-white" />,
+    "Social Impact": <Heart className="w-16 h-16 text-white" />,
+    "Educational Design": <GraduationCap className="w-16 h-16 text-white" />,
+    "Product Design": <Package className="w-16 h-16 text-white" />
+  };
+
   return (
     <section className="py-20 bg-white" id="projects">
       <div className="container mx-auto px-6">
