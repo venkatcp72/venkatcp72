@@ -111,19 +111,9 @@ const Projects = () => {
                 <div className={`relative overflow-hidden ${
                   viewMode === "list" ? "lg:w-1/3" : "h-48"
                 } bg-gradient-to-br ${categoryColors[project.category] || 'from-gray-400 to-gray-600'}`}>
-                  <div className="absolute inset-0 bg-black/10"></div>
                   
-                  {/* Category Icon and Label */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <div className="mb-3 transform group-hover:scale-110 transition-transform duration-300">
-                      {categoryIcons[project.category] || <Package className="w-16 h-16 text-white" />}
-                    </div>
-                    <div className="text-white text-center">
-                      <div className="text-sm font-semibold tracking-wide uppercase">
-                        {project.category}
-                      </div>
-                    </div>
-                  </div>
+                  {/* Clean placeholder for future images/videos */}
+                  <div className="absolute inset-0 bg-black/5"></div>
                   
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-emerald-500/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
