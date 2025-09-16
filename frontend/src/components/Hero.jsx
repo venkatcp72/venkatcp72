@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
-import { ArrowDown, Download, Mail } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
+import { ArrowDown, Eye, Mail } from 'lucide-react';
 
 const Hero = () => {
   return (
