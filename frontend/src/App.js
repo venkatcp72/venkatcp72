@@ -9,6 +9,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
+import Products from "./components/Products";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -21,6 +22,7 @@ const Home = () => {
         <About />
         <Skills />
         <Experience />
+        <Products />
         <Contact />
       </main>
       <Footer />
