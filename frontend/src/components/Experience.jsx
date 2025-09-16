@@ -157,35 +157,36 @@ const Experience = () => {
             </h3>
             
             <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-emerald-500 to-purple-500 rounded-full"></div>
+              {/* Timeline line positioned behind text */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-emerald-500 to-purple-500 rounded-full z-0"></div>
               
-              <div className="space-y-12">
+              <div className="space-y-12 relative z-10">
                 <div className="flex items-center justify-center">
-                  <div className="bg-emerald-500 text-white px-6 py-3 rounded-full font-semibold">
+                  <div className="bg-emerald-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg relative z-20">
                     2002 - Energy Solutions Entrepreneur
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-center">
-                  <div className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold">
+                  <div className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg relative z-20">
                     2005-2017 - Engineering Leadership
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-center">
-                  <div className="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold">
+                  <div className="bg-teal-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg relative z-20">
                     2017-2022 - Tech Startup Founder
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-center">
-                  <div className="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold">
+                  <div className="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg relative z-20">
                     2020-2025 - Retail Brand Builder
                   </div>
                 </div>
                 
                 <div className="flex items-center justify-center">
-                  <div className="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold">
+                  <div className="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg relative z-20">
                     2025+ - AI-Powered Creative Professional
                   </div>
                 </div>
