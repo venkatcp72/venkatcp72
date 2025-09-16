@@ -61,6 +61,7 @@ const Products = () => {
                   loop 
                   muted
                   playsInline
+                  controls
                   className="w-full h-full object-contain"
                 />
               </div>
