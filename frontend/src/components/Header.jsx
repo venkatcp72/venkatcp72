@@ -134,10 +134,11 @@ const Header = () => {
                 <Button 
                   variant="outline" 
                   size="sm"
+                  onClick={() => setIsResumeOpen(true)}
                   className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
                 >
-                  <Download className="w-4 h-4 mr-2" />
-                  Download Resume
+                  <Eye className="w-4 h-4 mr-2" />
+                  View Resume
                 </Button>
                 <Button 
                   size="sm"
