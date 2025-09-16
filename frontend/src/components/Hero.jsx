@@ -83,7 +83,8 @@ const Hero = () => {
                   <img 
                     src="https://customer-assets.emergentagent.com/job_a3d50be0-e9a5-47f6-bac9-65a33232c315/artifacts/e0ddcbu7_Photo.jpg"
                     alt="Venkateshwaran C P - AI-Powered Graphic Designer"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
+                    style={{ objectPosition: '50% 30%' }}
                   />
                 </div>
               </div>
