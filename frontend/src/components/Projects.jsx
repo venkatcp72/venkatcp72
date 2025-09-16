@@ -3,7 +3,7 @@ import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { mockPortfolioData } from '../mock/portfolioData';
-import { ExternalLink, Calendar, User, Filter, Grid, List } from 'lucide-react';
+import { ExternalLink, Calendar, User, Filter, Grid, List, Palette, Play, Megaphone, Heart, GraduationCap, Package } from 'lucide-react';
 
 const Projects = () => {
   const { projects } = mockPortfolioData;
