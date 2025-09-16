@@ -1,19 +1,132 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
+import { useToast } from '../hooks/use-toast';
 import { mockPortfolioData } from '../mock/portfolioData';
-import { Mail, Phone, MapPin, Globe, Send, Clock, Languages, Briefcase } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Send, Clock, Languages, Briefcase, Loader2 } from 'lucide-react';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Contact = () => {
   const { contact } = mockPortfolioData;
+  const { toast } = useToast();
 
-  const handleSubmit = (e) => {
+  // Form state
+  const [formData, setFormData] = useState({
+    full_name: '',
+    email: '',
+    company: '',
+    budget_range: '',
+    project_types: [],
+    message: ''
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  // Handle checkbox changes for project types
+  const handleProjectTypeChange = (type) => {
+    setFormData(prev => ({
+      ...prev,
+      project_types: prev.project_types.includes(type)
+        ? prev.project_types.filter(t => t !== type)
+        : [...prev.project_types, type]
+    }));
+  };
+
+  // Validate form
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.full_name.trim()) {
+      newErrors.full_name = 'Full name is required';
+    } else if (formData.full_name.trim().length < 2) {
+      newErrors.full_name = 'Full name must be at least 2 characters';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock form submission
-    alert("Thank you for your message! I'll get back to you soon.");
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(`${API}/contact`, formData);
+      
+      if (response.data) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: response.data.message,
+          variant: "default",
+        });
+
+        // Reset form
+        setFormData({
+          full_name: '',
+          email: '',
+          company: '',
+          budget_range: '',
+          project_types: [],
+          message: ''
+        });
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      
+      const errorMessage = error.response?.data?.detail || 
+                          error.message || 
+                          'An error occurred while sending your message. Please try again.';
+      
+      toast({
+        title: "Error Sending Message",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -148,10 +261,17 @@ const Contact = () => {
                           Full Name *
                         </label>
                         <Input 
+                          name="full_name"
+                          value={formData.full_name}
+                          onChange={handleInputChange}
                           placeholder="Your full name"
-                          required
-                          className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                          className={`border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 ${
+                            errors.full_name ? 'border-red-500' : ''
+                          }`}
                         />
+                        {errors.full_name && (
+                          <p className="text-red-500 text-xs mt-1">{errors.full_name}</p>
+                        )}
                       </div>
                       
                       <div className="space-y-2">
@@ -160,10 +280,17 @@ const Contact = () => {
                         </label>
                         <Input 
                           type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
                           placeholder="your.email@example.com"
-                          required
-                          className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                          className={`border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 ${
+                            errors.email ? 'border-red-500' : ''
+                          }`}
                         />
+                        {errors.email && (
+                          <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                        )}
                       </div>
                     </div>
                     
@@ -173,6 +300,9 @@ const Contact = () => {
                           Company/Organization
                         </label>
                         <Input 
+                          name="company"
+                          value={formData.company}
+                          onChange={handleInputChange}
                           placeholder="Your company name"
                           className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                         />
@@ -183,6 +313,9 @@ const Contact = () => {
                           Project Budget Range
                         </label>
                         <select 
+                          name="budget_range"
+                          value={formData.budget_range}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                         >
                           <option value="">Select budget range</option>
@@ -202,7 +335,12 @@ const Contact = () => {
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {["Brand Identity", "Digital Marketing", "AI-Enhanced Design", "Packaging Design", "Social Media", "Consultation"].map((type) => (
                           <label key={type} className="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" className="text-emerald-500 focus:ring-emerald-500" />
+                            <input 
+                              type="checkbox" 
+                              checked={formData.project_types.includes(type)}
+                              onChange={() => handleProjectTypeChange(type)}
+                              className="text-emerald-500 focus:ring-emerald-500" 
+                            />
                             <span className="text-sm text-gray-700">{type}</span>
                           </label>
                         ))}
@@ -214,20 +352,37 @@ const Contact = () => {
                         Project Description *
                       </label>
                       <Textarea 
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
                         placeholder="Tell me about your project, goals, timeline, and any specific requirements..."
                         rows={6}
-                        required
-                        className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                        className={`border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 ${
+                          errors.message ? 'border-red-500' : ''
+                        }`}
                       />
+                      {errors.message && (
+                        <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+                      )}
                     </div>
                     
                     <Button 
                       type="submit"
                       size="lg"
-                      className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-full transition-all duration-300 transform hover:scale-105"
+                      disabled={isLoading}
+                      className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-full transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:opacity-70"
                     >
-                      <Send className="w-5 h-5 mr-2" />
-                      Send Project Inquiry
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                          Sending Message...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-5 h-5 mr-2" />
+                          Send Project Inquiry
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
