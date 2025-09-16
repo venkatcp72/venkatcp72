@@ -1,0 +1,34 @@
+# PORTFOLIO DOWNLOAD INSTRUCTIONS
+
+## Method 1: Web Server (Active Now)
+Your files are being served at:
+- http://localhost:8080/portfolio-static-export.zip (ZIP file - 660KB)
+- http://localhost:8080/portfolio-static-export/ (Individual files)
+
+## Method 2: Manual Copy
+If the web server doesn't work, manually copy these files:
+
+1. Main HTML file: /app/portfolio-static-export/index.html
+2. CSS files: /app/portfolio-static-export/static/css/
+3. JS files: /app/portfolio-static-export/static/js/
+4. Complete ZIP: /app/portfolio-static-export.zip
+
+## Method 3: Cloud Upload (if available)
+Upload to your preferred cloud service:
+- Google Drive
+- Dropbox  
+- OneDrive
+- WeTransfer
+
+## What You're Downloading:
+- Complete static portfolio website
+- Size: 660KB (compressed)
+- Ready to upload to any hosting service
+- Includes README.md with deployment instructions
+
+## Quick Test After Download:
+1. Extract ZIP file
+2. Double-click index.html 
+3. Your portfolio opens in browser
+4. Test on mobile by resizing browser window
+
