@@ -153,6 +153,26 @@ const Header = () => {
           </div>
         )}
       </div>
+
+      {/* Resume Modal */}
+      <Dialog open={isResumeOpen} onOpenChange={setIsResumeOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle className="text-2xl font-bold text-gray-900">
+              Venkateshwaran C P - Resume
+            </DialogTitle>
+          </DialogHeader>
+          <div className="p-6 pt-0">
+            <div className="w-full h-[70vh] overflow-auto rounded-lg border border-gray-200">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_sarvo-studio/artifacts/mamg01e1_Venkateshwaran%20CV.png"
+                alt="Venkateshwaran C P Resume"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };
